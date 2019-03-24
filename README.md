@@ -7,7 +7,7 @@ Instructions -
 
 1. Download the repository
 2. Run with the following -
-		python cortex_demo.py
+		./setup.sh
 3. Position face close to the webcam
 4. Once done, press button 'q' on the keyboard
 5. The two plots show the horizontal and vertical movement of the pupil, smoothed over 20 frames
