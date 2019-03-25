@@ -1,5 +1,6 @@
 #Identify pupils. Based on beta 1
 
+import os, os.path
 import numpy as np
 import cv2
 import time
@@ -10,6 +11,12 @@ cap = cv2.VideoCapture(0) #640,480
 w = 640
 h = 480
 
+
+#cv2.namedWindow("window", 0)
+#cv2.setWindowProperty("window", cv2.WND_PROP_AUTOSIZE, cv2.WINDOW_AUTOSIZE)
+#cv2.setWindowProperty("window",cv2.WND_PROP_FULLSCREEN,cv2.WINDOW_FULLSCREEN)
+img = cv2.imread('Demo_text.jpg', 0)
+#img = cv2.resize(img, (3200, 1600))
 #ret, frame = cap.read()
 #pupilFrame = frame
 #pupilO = frame
@@ -112,8 +119,9 @@ while(cap.isOpened()):
                                 pupilY.append(cy)
                                 #show picture
                                 cv2.namedWindow('frame',cv2.WINDOW_NORMAL)
-                                cv2.resizeWindow('frame', 640, 480)
-                                cv2.imshow('frame',pupilO)
+                                #cv2.resizeWindow('frame', 640, 480)
+                                cv2.setWindowProperty('frame',cv2.WND_PROP_FULLSCREEN,cv2.WINDOW_FULLSCREEN)
+                                cv2.imshow('frame',img)
                                 #cv2.waitKey(30)
                 #cv2.imshow('frame2',pupilFrame)
                 if cv2.waitKey(1) & 0xFF == ord('q'):
@@ -148,4 +156,9 @@ ax2.scatter(range(len(pupilY_conv)), pupilY_conv, color = 'orange')
 #ax3.scatter(pupilX_conv, pupilY_conv)
 #ax3.plot(pupilX_conv, pupilY_conv, color='orange')
 plt.show()
-
+list = os.listdir('./training')
+fileno = './training/' + str(len(list))
+with open(fileno, "w") as fh :
+        for i in zip(pupilX, pupilY) :
+                fh.write(str(i))
+                fh.write('\n')
